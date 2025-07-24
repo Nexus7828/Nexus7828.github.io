@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NEXUS - Terminal Noir & Blanc</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  body {
+    background: #000;
+    color: #eee;
+    font-family: 'Roboto Mono', monospace;
+    overflow: hidden;
+  }
+
+  canvas#matrix {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: black;
+  }
+
+  /* Info Box */
+  .info-box {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 460px;
+    background: #000;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 15px 25px;
+    color: #eee;
+    font-size: 14px;
+    line-height: 1.4;
+    user-select: none;
+    z-index: 10;
+    overflow-x: auto;
+  }
+
+  .info-box div {
+    margin-bottom: 8px;
+    white-space: nowrap;
+  }
+
+  .info-label {
+    display: inline-block;
+    width: 80px;
+    font-weight: 600;
+    color: #ccc;
+  }
+
+  /* Skills Box */
+  .skills-box {
+    position: fixed;
+    top: 260px;
+    right: 20px;
+    width: 460px;
+    background: #000;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 15px 25px;
+    color: #eee;
+    font-size: 14px;
+    user-select: none;
+    z-index: 10;
+  }
+
+  .skills-title {
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .skill {
+    border: 1px solid #eee;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: default;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .skill:hover {
+    background: #eee;
+    color: #000;
+  }
+
+  /* Main container */
+  .main-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #000;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 40px;
+    width: 600px;
+    text-align: center;
+    color: #eee;
+    box-shadow: 0 0 15px #444;
+    user-select: none;
+    z-index: 10;
+  }
+
+  .pfp {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 2px solid #eee;
+    object-fit: cover;
+  }
+
+  h1 {
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    font-style: italic;
+    color: #bbb;
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #eee;
+  }
+
+  .links {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .links a {
+    border: 1px solid #eee;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: #eee;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .links a:hover {
+    background: #eee;
+    color: #000;
+  }
+
+</style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<!-- Info Box -->
+<div class="info-box" aria-label="Informations utilisateur">
+  <div><span class="info-label">IP:</span> <span id="ip">--</span></div>
+  <div><span class="info-label">LOC:</span> <span id="location">--</span></div>
+  <div><span class="info-label">ISP:</span> <span id="isp">--</span></div>
+  <div><span class="info-label">OS:</span> <span id="os">--</span></div>
+  <div><span class="info-label">Browser:</span> <span id="browser">--</span></div>
+  <div><span class="info-label">Device:</span> <span id="device">--</span></div>
+  <div><span class="info-label">Time:</span> <span id="time">--</span></div>
+</div>
+
+<!-- Skills Box -->
+<div class="skills-box" aria-label="Compétences">
+  <div class="skills-title">Skills</div>
+  <div class="skills-list">
+    <div class="skill">JavaScript</div>
+    <div class="skill">HTML</div>
+    <div class="skill">CSS</div>
+    <div class="skill">Node.js</div>
+    <div class="skill">React</div>
+    <div class="skill">Python</div>
+    <div class="skill">Git</div>
+    <div class="skill">Linux</div>
+  </div>
+</div>
+
+<!-- Main Profile -->
+<div class="main-container" role="main">
+  <img src="https://i.imgur.com/7yI242q.jpeg" alt="Profil Nexus" class="pfp" />
+  <h1>NEXUS</h1>
+  <div class="subtitle">[ BG DU 77 ]</div>
+  <p>Nique les arbres</p>
+  <p>Nique les salafistes</p>
+  <p>Nique horror</p>
+
+  <div class="links">
+    <a href="https://discord.com/channels/@me" target="_blank" rel="noopener noreferrer">Discord</a>
+    <a href="#" target="_blank" rel="noopener noreferrer">Twitter/X</a>
+    <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="https://www.youtube.com/channel/UCJrSDXZmVcY8ik4zhJqEC2w" target="_blank" rel="noopener noreferrer">YouTube</a>
+    <a href="https://open.spotify.com/user/31dsadacv64o3hhc4ts5wxa47xri" target="_blank" rel="noopener noreferrer">Spotify</a>
+    <a href="https://github.com/Nexus7828" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </div>
+</div>
+
+<script>
+  // Matrix animation - blanc/gris clair très discret
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let columns;
+  let drops;
+
+  function setup() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    columns = Math.floor(width / 20);
+    drops = new Array(columns).fill(0);
+  }
+
+  function draw() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = '#eee';
+    ctx.font = '16px monospace';
+
+    for(let i = 0; i < drops.length; i++) {
+      const text = Math.random() > 0.5 ? '1' : '0';
+      const x = i * 20;
+      const y = drops[i] * 20;
+      ctx.fillText(text, x, y);
+
+      if(y > height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+
+  setup();
+  setInterval(draw, 50);
+
+  window.addEventListener('resize', () => {
+    setup();
+  });
+
+  // OS, Browser, Device detection (simple)
+  function getOS() {
+    const userAgent = navigator.userAgent;
+    if(/Windows NT/i.test(userAgent)) return 'Windows';
+    if(/Mac OS X/i.test(userAgent)) return 'Mac OS';
+    if(/Linux/i.test(userAgent)) return 'Linux';
+    if(/Android/i.test(userAgent)) return 'Android';
+    if(/iPhone|iPad|iPod/i.test(userAgent)) return 'iOS';
+    return 'Unknown';
+  }
+
+  function getBrowser() {
+    const userAgent = navigator.userAgent;
+    if(userAgent.indexOf("Firefox") > -1) return "Firefox";
+    if(userAgent.indexOf("Chrome") > -1) return "Chrome";
+    if(userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") === -1) return "Safari";
+    if(userAgent.indexOf("Opera") > -1 || userAgent.indexOf("OPR") > -1) return "Opera";
+    if(userAgent.indexOf("MSIE") > -1 || !!document.documentMode) return "IE";
+    return "Unknown";
+  }
+
+  function getDevice() {
+    const ua = navigator.userAgent;
+    if(/Mobi|Android/i.test(ua)) return 'Mobile';
+    return 'Desktop';
+  }
+
+  // Update time every second
+  function updateTime() {
+    const now = new Date();
+    return now.toLocaleTimeString('fr-FR', { hour12: false });
+  }
+
+  // Fetch IP and location from API
+  async function fetchIPinfo() {
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      if(!res.ok) throw new Error('API IP non dispo');
+      const data = await res.json();
+      return {
+        ip: data.ip,
+        location: `${data.city}, ${data.region}, ${data.country_name}`,
+        isp: data.org || 'N/A',
+      };
+    } catch(e) {
+      return {
+        ip: 'N/A',
+        location: 'N/A',
+        isp: 'N/A'
+      };
+    }
+  }
+
+  async function init() {
+    const ipinfo = await fetchIPinfo();
+
+    document.getElementById('ip').textContent = ipinfo.ip;
+    document.getElementById('location').textContent = ipinfo.location;
+    document.getElementById('isp').textContent = ipinfo.isp;
+
+    document.getElementById('os').textContent = getOS();
+    document.getElementById('browser').textContent = getBrowser();
+    document.getElementById('device').textContent = getDevice();
+
+    function refreshTime() {
+      document.getElementById('time').textContent = updateTime();
+    }
+    refreshTime();
+    setInterval(refreshTime, 1000);
+  }
+
+  init();
+</script>
+
+</body>
+</html>
